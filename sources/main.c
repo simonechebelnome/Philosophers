@@ -2,34 +2,40 @@
 
 pthread_mutex_t lock;
 
-void *routine()
-{
+void *routine(void *count)
+{	
 	pthread_mutex_lock(&lock);
-    printf("Inizializzazione Thread\n");
-    sleep(3);
-    printf("Fine thread \n");
+	printf(YELLOW"Inizializzazione Thread %d\n", (int)count++);
+	sleep(3);
+	printf("Fine thread \n");
 	pthread_mutex_unlock(&lock);	
-    return 0;
+	return 0;
 }
 
-int main(int argc, char **argv)
+int main(int args_count, char **args)
 {
-    if (argc != 2)
-    {
-        printf("Errore");
-        return 1;
-    }
-    pthread_mutex_init(&lock, NULL);
-	int thread_num = atoi(argv[1]);
-    pthread_t th[thread_num];
-    int count = 0;
-    while (count < thread_num)   
+	if (args_count != 5)
 	{
-        if(pthread_create(th + count, NULL, &routine, NULL) != 0) // Creates the thread
-            return 1; 
-        pthread_join(th[count], NULL); // Waits for the thread to execute
-        count++;
+		printf(RED"Errore nel numero di argomenti!\n");
+		return 1;
+    }
+	pthread_mutex_init(&lock, NULL);
+	t_table *table = (void *)malloc(sizeof(t_table));
+	parse_argument(args_count, args, table);
+	int *i; //As a test for passing argument to thread
+
+	printf(RED"Attualmente ci sono %d Filosofi e %d Forchette!\n", table->philo_num, table->philo_num);
+    pthread_t th[table->philo_num];
+	int count = 0;
+	while (count < table->philo_num)   
+	{
+		i = malloc(sizeof(*i));
+		*i = count;
+		if(pthread_create(th + count, NULL, &routine, i) != 0)
+			return 1; 
+		pthread_join(th[count], NULL);
+		count++;
 	}
 	pthread_mutex_destroy(&lock);
-    return 0;
+	return 0;
 }
