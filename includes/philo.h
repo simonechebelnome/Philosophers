@@ -12,7 +12,7 @@
 
 #define PARSE_ERROR "PARSE ERROR!"
 #define	INVALID_ARGS "INVALID ARGUMENTS!"
-#define END "SUCCESSFULY COMPILED"
+#define THREAD "ERROR OCCURED WHEN CREATING THREADS"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -21,15 +21,29 @@
 #include <pthread.h>
 #include <time.h>
 
+typedef struct	s_philo
+{
+	int				id;
+	int				is_dead;
+	struct s_table	*table;
+}				t_philo;
+
 typedef struct	s_table
 {
-    int		philo_num;
-    int		die_time;
-	int		sleep_time;
-	int		eat_time;
-	int		eat_count;
-	int		*forks;
+	pthread_mutex_t lock;
+    int				philo_num;
+	int 			count;
+    int				die_time;
+	int				sleep_time;
+	int				eat_time;
+	int				eat_count;
+	int				*forks; //THIS CAN'T ACTUALLY BE AN INT ARRAY
+	t_philo			philosophers[20];
 }				t_table;
+
+/* MAIN CODE */
+void *routine(void *philosopher_tmp);
+int	thread_start(t_table *table);
 
 /* PARSING */
 int		parse_argument(int argc, char **args, t_table *table);
