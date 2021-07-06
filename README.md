@@ -1,4 +1,4 @@
-# 🧠 42 PHILOSOPHERS
+## 🧠 42 PHILOSOPHERS
 *Made by **smenna***
 
 **TO-DO LIST**:
