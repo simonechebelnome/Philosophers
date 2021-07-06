@@ -1,5 +1,5 @@
 # 🧠 42 PHILOSOPHERS
-*Made by **smenna** *
+*Made by **smenna***
 
 **TO-DO LIST**:
 
