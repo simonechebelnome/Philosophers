@@ -10,9 +10,9 @@
 #define CYAN "\033[0;36m"
 #define WHITE "\033[0;37m"
 
-#define PARSE_ERROR "PARSE ERROR!"
-#define	INVALID_ARGS "INVALID ARGUMENTS!"
-#define THREAD "ERROR OCCURED WHEN CREATING THREADS"
+#define PARSE_ERROR		"PARSE ERROR!"
+#define	INVALID_ARGS	"INVALID ARGUMENTS!"
+#define THREAD			"ERROR OCCURED WHEN CREATING THREADS"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -23,9 +23,10 @@
 
 typedef struct	s_philo
 {
-	int				id;
+	int				th_count;
 	int				is_dead;
 	struct s_table	*table;
+	pthread_t		id;
 }				t_philo;
 
 typedef struct	s_table
