@@ -1,6 +1,7 @@
-Made by smenna
+# 🧠 42 PHILOSOPHERS
+*Made by **smenna
 
-TO-DO LIST:
+**TO-DO LIST:
 
 - [x] Pass a struct to the thread as an argument
 - [x] Avoid using a global variable for mutex
