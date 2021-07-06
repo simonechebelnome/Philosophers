@@ -1,7 +1,11 @@
-Made by smenna
+## 🧠 42 PHILOSOPHERS
+*Made by **smenna***
 
-TO-DO LIST::
+**TO-DO LIST**:
 
-- [ ] Pass a struct to the thread as an argument
-- [ ] Avoid using a global variable for mutex
+- [x] Pass a struct to the thread as an argument
+- [x] Avoid using a global variable for mutex
 - [ ] Find a way for each philosopher to grab a fork
+- [ ] Understand how to make threads communicate
+- [ ] Understand where to place the mutex
+- [ ] Avoid Deadlock and Starvation
