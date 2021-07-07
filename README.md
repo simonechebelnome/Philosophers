@@ -7,4 +7,6 @@
 - [x] Avoid using a global variable for mutex
 - [x] Find a way for each philosopher to grab a fork
 - [x] Understand where to place the mutex *[Yes, just lock each fork and you're done]*
+- [ ] Create the main cycle
+- [ ] Fix the norm
 - [ ] Avoid Deadlock and Starvation
