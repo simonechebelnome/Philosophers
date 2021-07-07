@@ -25,10 +25,12 @@
 
 typedef struct	s_philo
 {
-	int				th_count;
+	int				id;
 	int				is_dead;
+	int				right_fork;
+	int				left_fork;
 	struct s_table	*table;
-	pthread_t		id;
+	pthread_t		thread_id;
 }				t_philo;
 
 typedef struct	s_table
@@ -49,6 +51,7 @@ int		thread_start(t_table *table);
 
 /* PARSING */
 int		parse_argument(int argc, char **args, t_table *table);
+int		fill_osophers(t_table *table);
 
 /* UTILS */
 void 	exit_and_destroy(t_table *table, char *message);

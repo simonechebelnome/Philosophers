@@ -30,9 +30,26 @@ int parse_argument(int args_count, char **args, t_table *table)
         	return 5;
 	}
 	
+	fill_osophers(table);
 	// -- WARNING: SOME USELESS DEBUG SHIT --
 	if(args[6] && !strcmp(args[6], "--debug"))
 		debugghino_parserino(table);
 
     return 0;
+}
+
+int	fill_osophers(t_table *table)
+{
+	int i;
+
+	i = table->philo_num;
+	while(--i >= 0)
+	{
+		table->philosophers[i].id = i + 1;
+		table->philosophers[i].right_fork = i;
+		table->philosophers[i].left_fork = (i + 1) % table->philo_num;
+		table->philosophers[i].is_dead = 0;
+		table->philosophers[i].table = table;
+	}
+	return(0);
 }

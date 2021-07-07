@@ -54,10 +54,16 @@ int		ft_atoi(const char *str)
 
 void    debugghino_parserino(t_table *table)
 {
+	int i = 0;
     printf(GREEN"\n// DEBUGGING START\n\n");
     printf(WHITE"Numero Filosofi: %d\n", table->philo_num);
 	printf("Tempo Morte: %d\n", table->die_time);
 	printf("Tempo per Mangiare: %d\n", table->eat_time);
 	printf("Tempo per dormire: %d\n", table->sleep_time);
+	while(i < table->philo_num)
+	{
+		printf("Il Filosofo %d ha come forchetta destra %d e come sinistra %d\n", table->philosophers[i].id, table->philosophers[i].right_fork, table->philosophers[i].left_fork);
+		i++;
+	}
 	printf(GREEN"\n// DEBUGGING END\n\n");
 }
