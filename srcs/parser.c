@@ -8,10 +8,9 @@ int parse_argument(int args_count, char **args, t_table *table)
     table->philo_num = ft_atoi(args[1]);
     if(table->philo_num < 0 || !table->philo_num)
         return 1;
-	table->forks = (int *)malloc(sizeof(int) * table->philo_num + 1);
 	while(i < table->philo_num)
 	{
-		table->forks[i] = i + 1;
+		pthread_mutex_init(&table->forks[i], NULL);
 		i++;
 	}
 	//table->forks[i] = '\0';

@@ -1,7 +1,16 @@
 #include "../includes/philo.h"
 
-void exit_message(char *message)
+void exit_and_destroy(t_table *table, char *message)
 {
+	int i;
+
+	i = 0;
+	while(i < table->philo_num)
+	{
+		printf(PURPLE"Distruggo il mutex sulla forchetta %d\n", i + 1);
+		pthread_mutex_destroy(&table->forks[i]);
+		i++;
+	}
     printf(RED"\n%s\n", message);
     printf(GREEN"EXITING PROGRAM...\n\n");
     exit(0);
@@ -39,11 +48,5 @@ void    debugghino_parserino(t_table *table)
 	printf("Tempo Morte: %d\n", table->die_time);
 	printf("Tempo per Mangiare: %d\n", table->eat_time);
 	printf("Tempo per dormire: %d\n", table->sleep_time);
-	int i = 0;
-	while(i < table->philo_num)
-	{
-		printf("Forchetta Numero: %d\n", table->forks[i]);
-		i++;
-	} 
 	printf(GREEN"\n// DEBUGGING END\n\n");
 }

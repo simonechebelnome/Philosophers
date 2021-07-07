@@ -14,6 +14,7 @@
 #define	INVALID_ARGS	"INVALID ARGUMENTS!"
 #define THREAD			"ERROR OCCURED WHEN CREATING THREADS"
 #define	DEATH			"OH NO! SOMEONE JUST DIED :("
+#define SUCCESS			"YAAAAAYY! YOU MADE IT!"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -32,7 +33,7 @@ typedef struct	s_philo
 
 typedef struct	s_table
 {
-	pthread_mutex_t lock;
+	pthread_mutex_t forks[20];
 	t_philo			philosophers[20];
     int				philo_num;
 	int 			count;
@@ -40,7 +41,6 @@ typedef struct	s_table
 	int				sleep_time;
 	int				eat_time;
 	int				eat_count;
-	int				*forks; //THIS CAN'T ACTUALLY BE AN INT ARRAY
 }				t_table;
 
 /* MAIN CODE */
@@ -51,7 +51,7 @@ int		thread_start(t_table *table);
 int		parse_argument(int argc, char **args, t_table *table);
 
 /* UTILS */
-void	exit_message(char *message);
+void 	exit_and_destroy(t_table *table, char *message);
 int		ft_atoi(const char *str);
 
 /* DEBUG */
