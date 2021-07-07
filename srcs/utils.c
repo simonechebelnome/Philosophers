@@ -1,8 +1,7 @@
 #include "../includes/philo.h"
 
-void exit_and_free(t_table *table, char *message)
+void exit_message(char *message)
 {
-    free(table);
     printf(RED"\n%s\n", message);
     printf(GREEN"EXITING PROGRAM...\n\n");
     exit(0);

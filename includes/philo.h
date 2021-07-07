@@ -13,6 +13,7 @@
 #define PARSE_ERROR		"PARSE ERROR!"
 #define	INVALID_ARGS	"INVALID ARGUMENTS!"
 #define THREAD			"ERROR OCCURED WHEN CREATING THREADS"
+#define	DEATH			"OH NO! SOMEONE JUST DIED :("
 
 #include <stdio.h>
 #include <unistd.h>
@@ -32,6 +33,7 @@ typedef struct	s_philo
 typedef struct	s_table
 {
 	pthread_mutex_t lock;
+	t_philo			philosophers[20];
     int				philo_num;
 	int 			count;
     int				die_time;
@@ -39,18 +41,17 @@ typedef struct	s_table
 	int				eat_time;
 	int				eat_count;
 	int				*forks; //THIS CAN'T ACTUALLY BE AN INT ARRAY
-	t_philo			philosophers[20];
 }				t_table;
 
 /* MAIN CODE */
-void *routine(void *philosopher_tmp);
-int	thread_start(t_table *table);
+void	*routine(void *philosopher_tmp);
+int		thread_start(t_table *table);
 
 /* PARSING */
 int		parse_argument(int argc, char **args, t_table *table);
 
 /* UTILS */
-void	exit_and_free(t_table *table, char *message);
+void	exit_message(char *message);
 int		ft_atoi(const char *str);
 
 /* DEBUG */
