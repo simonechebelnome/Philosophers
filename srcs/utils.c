@@ -1,6 +1,6 @@
 #include "../includes/philo.h"
 
-void exit_and_destroy(t_table *table, char *message)
+void	exit_and_destroy(t_table *table, char *message)
 {
 	int i;
 
@@ -11,12 +11,23 @@ void exit_and_destroy(t_table *table, char *message)
 		pthread_mutex_destroy(&table->forks[i]);
 		i++;
 	}
-    printf(RED"\n%s\n", message);
-    printf(GREEN"EXITING PROGRAM...\n\n");
-    exit(0);
+	printf(RED"\n%s\n", message);
+	printf(GREEN"EXITING PROGRAM...\n\n");
+	exit(0);
 }
 
-int	ft_atoi(const char *str)
+void	print_header()
+{
+	printf(BLUE"\n");
+	printf(" ___ ___        _   _ _                 _       \n");
+	printf("| | |_  |   ___| |_|_| |___ ___ ___ ___| |_ ___ ___ ___ \n");
+	printf("|_  |  _|  | . |   | | | . |_ -| . | . |   | -_|  _|_ -|\n");
+  	printf("  |_|___|  |  _|_|_|_|_|___|___|___|  _|_|_|___|_| |___|\n");
+    printf("           |_|                     |_|                  \n");
+	printf(WHITE"						made by"RED" smenna\n\n");
+}
+
+int		ft_atoi(const char *str)
 {
 	unsigned long long	res;
 	int					negative;

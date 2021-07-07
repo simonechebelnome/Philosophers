@@ -53,6 +53,7 @@ int		parse_argument(int argc, char **args, t_table *table);
 /* UTILS */
 void 	exit_and_destroy(t_table *table, char *message);
 int		ft_atoi(const char *str);
+void	print_header();
 
 /* DEBUG */
 void    debugghino_parserino(t_table *table);

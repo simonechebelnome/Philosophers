@@ -2,13 +2,13 @@
 
 void *routine(void *philosopher_tmp)
 {	
-	t_philo *philo = (t_philo *)philosopher_tmp;
-	t_table *table; //This must be in someway initialized
+	t_philo	*philo = (t_philo *)philosopher_tmp;
+	t_table	*table; //This must be in someway initialized
 	table = philo->table;
 
 	printf(YELLOW"Inizializzazione Thread [FILOSOFO %d]\n", philo->th_count);
-    while(philo->is_dead != 1) //This technically is the main part of the code
-    {
+	while(philo->is_dead != 1) //This technically is the main part of the code
+	{
 		//eat_time(&table);
 		usleep(table->eat_time); 
 		usleep(table->sleep_time);
@@ -19,7 +19,7 @@ void *routine(void *philosopher_tmp)
 			exit_and_destroy(table, DEATH);
 		}
 		philo->is_dead = 1; //Placeholder
-    }
+	}
 	sleep(1);
 	printf("Fine thread\n");
 	return 0;
