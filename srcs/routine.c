@@ -11,7 +11,7 @@ void *routine(void *philosopher_tmp)
 	{
 		//eat_time(&table);
 		printf(WHITE"["GREEN"%d"WHITE"]"BLUE" Filosofo %d sta mangiando.\n", table->eat_time, philo->id);
-		usleep(table->eat_time);
+		eat_time(table);
 		printf(WHITE"["GREEN"%d"WHITE"]"BLUE" Filosofo %d sta dormendo.\n", table->sleep_time, philo->id);
 		usleep(table->sleep_time);
 		//usleep(2000); The time to think isn't specified

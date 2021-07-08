@@ -20,7 +20,8 @@ INCDIR = 		./includes
 FILES =			main.c \
 				parser.c \
 				utils.c \
-				routine.c
+				routine.c \
+				actions.c
 
 #Srcs
 SRCS = 			$(foreach FILE, $(FILES), $(shell find $(SRCDIR) -name $(FILE)))

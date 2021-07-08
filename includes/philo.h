@@ -61,4 +61,6 @@ void	print_header();
 /* DEBUG */
 void    debugghino_parserino(t_table *table);
 
+/* ACTIONS */
+int *eat_time(t_table *table);
 #endif
