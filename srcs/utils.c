@@ -67,3 +67,15 @@ void    debugghino_parserino(t_table *table)
 	}
 	printf(GREEN"\n// DEBUGGING END\n\n");
 }
+
+void	print_message(t_table *table, char *message, int id)
+{
+	pthread_mutex_lock(&table->write);
+	if(table->is_dead != 1)
+	{
+		printf(WHITE"["GREEN"%lli"WHITE"]", get_time() - table->start_time);
+		printf(" Filosofo"RED" %d ", id);
+		printf(GREEN"%s\n", message);
+	}
+	pthread_mutex_unlock(&table->write);
+}

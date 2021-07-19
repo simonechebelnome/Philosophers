@@ -22,13 +22,15 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <time.h>
+#include <sys/time.h>
 
 typedef struct	s_philo
 {
 	int				id;
-	int				is_dead;
 	int				right_fork;
+	int				have_eaten;
 	int				left_fork;
+	long long		last_meal;
 	struct s_table	*table;
 	pthread_t		thread_id;
 }				t_philo;
@@ -36,7 +38,11 @@ typedef struct	s_philo
 typedef struct	s_table
 {
 	pthread_mutex_t forks[20];
+	pthread_mutex_t	write;
+	pthread_mutex_t eat_lock;
 	t_philo			philosophers[20];
+	long long		start_time;
+	int				is_dead;
     int				philo_num;
 	int 			count;
     int				die_time;
@@ -54,13 +60,16 @@ int		parse_argument(int argc, char **args, t_table *table);
 int		fill_osophers(t_table *table);
 
 /* UTILS */
-void 	exit_and_destroy(t_table *table, char *message);
-int		ft_atoi(const char *str);
-void	print_header();
+void		exit_and_destroy(t_table *table, char *message);
+int			ft_atoi(const char *str);
+void		print_header();
+void		my_usleep(int time, t_table *table);
+void		print_message(t_table *table, char *message, int id);
+long long	get_time(void);
 
 /* DEBUG */
 void    debugghino_parserino(t_table *table);
 
 /* ACTIONS */
-int *eat_time(t_table *table);
+int *eat_time(t_philo *philo);
 #endif

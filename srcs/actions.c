@@ -1,14 +1,23 @@
 #include "../includes/philo.h"
 
-int *eat_time(t_table *table)
+int *eat_time(t_philo *philo)
 {
+    t_table *table;
+    table = philo->table;
+
     pthread_mutex_lock(&table->forks[table->philosophers->right_fork]);
-    printf(RED"Il filosofo ha afferrato la forchetta destra\n");
-    pthread_mutex_unlock(&table->forks[table->philosophers->right_fork]);
+    print_message(table, "ha afferrato la forchetta destra", philo->id);
     pthread_mutex_lock(&table->forks[table->philosophers->left_fork]);
-    printf(RED"Il filosofo ha afferratto la forchetta sinistra\n");
+    print_message(table, "ha afferrato la forchetta sinistra", philo->id);
+    pthread_mutex_lock(&table->eat_lock);
+    print_message(table, YELLOW"sta mangiando", philo->id);
+    philo->last_meal = get_time();
+    pthread_mutex_unlock(&table->eat_lock);
+    my_usleep(table->eat_time, table);
+    philo->have_eaten++;
+    pthread_mutex_unlock(&table->forks[table->philosophers->right_fork]);
     pthread_mutex_unlock(&table->forks[table->philosophers->left_fork]);
+    
     usleep(table->eat_time);
-    printf(GREEN"Il filosofo ha finito di mangiare\n");
     return 0;
 }

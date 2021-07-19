@@ -3,7 +3,7 @@ NAME =			philosophers
 
 #Compiler
 CC = 			gcc
-CFLAGS = 		-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = 		-Wall -Wextra -Werror -lpthread
 
 #Norm
 NORM =			norminette
@@ -21,7 +21,8 @@ FILES =			main.c \
 				parser.c \
 				utils.c \
 				routine.c \
-				actions.c
+				actions.c \
+				sleep.c 
 
 #Srcs
 SRCS = 			$(foreach FILE, $(FILES), $(shell find $(SRCDIR) -name $(FILE)))

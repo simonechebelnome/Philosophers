@@ -4,6 +4,7 @@ int	main(int args_count, char **args)
 {
 	t_table	table;
 
+	table.start_time = get_time();
 	print_header();
 	if (args_count < 5 || args_count > 7) // Change 7 to 6 when you finish
 		exit_and_destroy(&table, INVALID_ARGS);
