@@ -1,21 +1,23 @@
 #include "../includes/philo.h"
 
-void	exit_and_destroy(t_table *table, char *message)
+void	exit_and_destroy(t_table *table, t_philo *philo)
 {
 	int i;
 
-	i = 0;
-	while(i < table->philo_num)
-	{
-		printf(PURPLE"Distruggo il mutex sulla forchetta %d\n", i + 1);
+	i = -1;
+	while(++i < table->philo_num)
+		pthread_join(philo[i].thread_id, NULL);
+	i = -1;
+	while(++i < table->philo_num)
 		pthread_mutex_destroy(&table->forks[i]);
-		i++;
-	}
-	printf(RED"\n%s\n", message);
-	printf(GREEN"EXITING PROGRAM...\n\n");
-	exit(0);
+	pthread_mutex_destroy(&table->write);
 }
 
+int		return_error(char *message)
+{
+	printf("%s\n", message);
+	return(1);
+}
 void	print_header()
 {
 	printf(BLUE"\n");
@@ -74,7 +76,7 @@ void	print_message(t_table *table, char *message, int id)
 	if(table->is_dead != 1)
 	{
 		printf(WHITE"["GREEN"%lli"WHITE"]", get_time() - table->start_time);
-		printf(" Filosofo"RED" %d ", id);
+		printf(RED" %d ", id);
 		printf(GREEN"%s\n", message);
 	}
 	pthread_mutex_unlock(&table->write);

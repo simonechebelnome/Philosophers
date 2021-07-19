@@ -13,8 +13,7 @@
 #define PARSE_ERROR		"PARSE ERROR!"
 #define	INVALID_ARGS	"INVALID ARGUMENTS!"
 #define THREAD			"ERROR OCCURED WHEN CREATING THREADS"
-#define	DEATH			"OH NO! SOMEONE JUST DIED :("
-#define SUCCESS			"YAAAAAYY! YOU MADE IT!"
+#define SUCCESS			"I'M EXITING THE PROGRAM"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -43,6 +42,8 @@ typedef struct	s_table
 	t_philo			philosophers[20];
 	long long		start_time;
 	int				is_dead;
+	int 			all_ate;
+	int				no_ate;
     int				philo_num;
 	int 			count;
     int				die_time;
@@ -54,18 +55,20 @@ typedef struct	s_table
 /* MAIN CODE */
 void	*routine(void *philosopher_tmp);
 int		thread_start(t_table *table);
+void	check_death(t_table *table, t_philo *philo);
 
 /* PARSING */
 int		parse_argument(int argc, char **args, t_table *table);
 int		fill_osophers(t_table *table);
 
 /* UTILS */
-void		exit_and_destroy(t_table *table, char *message);
+void		exit_and_destroy(t_table *table, t_philo *philo);
 int			ft_atoi(const char *str);
 void		print_header();
 void		my_usleep(int time, t_table *table);
 void		print_message(t_table *table, char *message, int id);
 long long	get_time(void);
+int			return_error(char *message);
 
 /* DEBUG */
 void    debugghino_parserino(t_table *table);
