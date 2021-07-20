@@ -51,8 +51,8 @@ int	fill_osophers(t_table *table)
 	while (--i >= 0)
 	{
 		table->philosophers[i].id = i;
-		table->philosophers[i].right_fork = i;
-		table->philosophers[i].left_fork = (i + 1) % table->philo_num;
+		table->philosophers[i].left_fork = i;
+		table->philosophers[i].right_fork = (i + 1) % table->philo_num;
 		table->philosophers[i].table = table;
 		table->philosophers[i].last_meal = 0;
 		table->philosophers[i].have_eaten = 0;
