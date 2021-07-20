@@ -58,6 +58,7 @@ void		check_death(t_table *table, t_philo *philo);
 /* PARSING */
 int			parse_argument(int argc, char **args, t_table *table);
 int			fill_osophers(t_table *table);
+int			init_mutex(t_table *table);
 
 /* UTILS */
 void		exit_and_destroy(t_table *table, t_philo *philo);

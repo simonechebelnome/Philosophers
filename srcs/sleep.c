@@ -15,6 +15,6 @@ void	my_usleep(int time, t_table *table)
 	long long	end_time;
 
 	end_time = get_time() + time;
-	while (get_time() < end_time && table->is_dead != 1)
+	while (get_time() < end_time && !table->is_dead)
 		usleep(time);
 }
