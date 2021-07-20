@@ -14,7 +14,7 @@ int *eat_time(t_philo *philo)
     philo->last_meal = get_time();
     pthread_mutex_unlock(&table->eat_lock);
     my_usleep(table->eat_time, table);
-    philo->have_eaten++;
+    (philo->have_eaten)++;
     pthread_mutex_unlock(&table->forks[table->philosophers->right_fork]);
     pthread_mutex_unlock(&table->forks[table->philosophers->left_fork]);
     

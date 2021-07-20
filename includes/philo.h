@@ -70,9 +70,6 @@ void		print_message(t_table *table, char *message, int id);
 long long	get_time(void);
 int			return_error(char *message);
 
-/* DEBUG */
-void    debugghino_parserino(t_table *table);
-
 /* ACTIONS */
 int *eat_time(t_philo *philo);
 #endif

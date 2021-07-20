@@ -13,7 +13,6 @@ int parse_argument(int args_count, char **args, t_table *table)
 		pthread_mutex_init(&table->forks[i], NULL);
 		i++;
 	}	
-	//table->forks[i] = '\0';
 	table->die_time = ft_atoi(args[2]);
 	if(table->die_time < 0 || !table->die_time)
 		return 2;
@@ -29,12 +28,10 @@ int parse_argument(int args_count, char **args, t_table *table)
 		if(table->eat_count < 0 || !table->eat_count)
         	return 5;
 	}
+	else
+		table->eat_count = -1;
 	
 	fill_osophers(table);
-	// -- WARNING: SOME USELESS DEBUG SHIT --
-	if(args[6] && !strcmp(args[6], "--debug"))
-		debugghino_parserino(table);
-
     return 0;
 }
 
@@ -45,7 +42,7 @@ int	fill_osophers(t_table *table)
 	i = table->philo_num;
 	while(--i >= 0)
 	{
-		table->philosophers[i].id = i + 1;
+		table->philosophers[i].id = i;
 		table->philosophers[i].right_fork = i;
 		table->philosophers[i].left_fork = (i + 1) % table->philo_num;
 		table->philosophers[i].table = table;

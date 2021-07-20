@@ -3,7 +3,7 @@ NAME =			philosophers
 
 #Compiler
 CC = 			gcc
-CFLAGS = 		-Wall -Wextra -Werror -lpthread
+CFLAGS = 		-Wall -Wextra -Werror -g -fsanitize=address -I -lpthread 
 
 #Norm
 NORM =			norminette

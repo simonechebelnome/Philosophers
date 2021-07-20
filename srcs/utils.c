@@ -53,30 +53,13 @@ int		ft_atoi(const char *str)
 	return (res * negative);
 }
 
-
-void    debugghino_parserino(t_table *table)
-{
-	int i = 0;
-    printf(GREEN"\n// DEBUGGING START\n\n");
-    printf(WHITE"Numero Filosofi: %d\n", table->philo_num);
-	printf("Tempo Morte: %d\n", table->die_time);
-	printf("Tempo per Mangiare: %d\n", table->eat_time);
-	printf("Tempo per dormire: %d\n", table->sleep_time);
-	while(i < table->philo_num)
-	{
-		printf("Il Filosofo %d ha come forchetta destra %d e come sinistra %d\n", table->philosophers[i].id, table->philosophers[i].right_fork, table->philosophers[i].left_fork);
-		i++;
-	}
-	printf(GREEN"\n// DEBUGGING END\n\n");
-}
-
 void	print_message(t_table *table, char *message, int id)
 {
 	pthread_mutex_lock(&table->write);
 	if(table->is_dead != 1)
 	{
 		printf(WHITE"["GREEN"%lli"WHITE"]", get_time() - table->start_time);
-		printf(RED" %d ", id);
+		printf(RED" %d ", id + 1);
 		printf(GREEN"%s\n", message);
 	}
 	pthread_mutex_unlock(&table->write);

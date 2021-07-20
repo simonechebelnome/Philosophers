@@ -2,14 +2,15 @@
 
 void *routine(void *philosopher_tmp)
 {	
-	t_philo	*philo = (t_philo *)philosopher_tmp;
-	t_table	*table; //This must be in someway initialized
-	table = philo->table;
-	//printf(YELLOW"Inizializzazione Thread [FILOSOFO %d]\n", philo->id);
+	t_philo	*philo;;
+	t_table	*table;
 
+	//printf("%d\n", philo->id);
+	philo = (t_philo *)philosopher_tmp;
+	table = philo->table;
 	if (philo->id % 2)
 		usleep(15000);
-	while(table->is_dead != 1) //This technically is the main part of the code
+	while(!table->is_dead)
 	{
 		eat_time(philo);
 		if(table->all_ate)
@@ -23,12 +24,15 @@ void *routine(void *philosopher_tmp)
 
 int	thread_start(t_table *table)
 {
-	t_philo *philo = table->philosophers;
-	int i = 0;
+	t_philo *philo;
+	int i;
 
+	i = 0;
+	philo = table->philosophers;
+	table->start_time = get_time();
 	while (i < table->philo_num)   
 	{
-		if(pthread_create(&(philo[i].thread_id), NULL, routine, &(philo[i])) != 0)
+		if(pthread_create(&(philo[i].thread_id), NULL, routine, &(philo[i])))
 			return 1; 
 		philo[i].last_meal = get_time();
 		i++;
@@ -45,7 +49,7 @@ void	check_death(t_table *table, t_philo *philo)
 	while(!(table->all_ate))
 	{
 		i = -1;
-		while(++i < table->philo_num && table->is_dead != 1)
+		while(++i < table->philo_num && !(table->is_dead))
 		{
 			pthread_mutex_lock(&table->eat_lock);
 			if((get_time() - philo[i].last_meal) > table->die_time)
@@ -54,11 +58,12 @@ void	check_death(t_table *table, t_philo *philo)
 				table->is_dead = 1;
 			}
 			pthread_mutex_unlock(&table->eat_lock);
+			usleep(100);
 		}
 		if(table->is_dead)
 			break;
 		i = 0;
-		while (table->no_ate != -1 && i < table->philo_num && philo[i].have_eaten >= table->no_ate)
+		while (table->eat_count != -1 && i < table->philo_num && philo[i].have_eaten >= table->eat_count)
 			i++;
 		if(i == table->philo_num)
 			table->all_ate = 1;
