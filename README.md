@@ -10,5 +10,5 @@
 - [x] Create the main cycle
 - [x] Fix the norm
 - [x] Avoid Deadlock and Starvation
-- [ ] Learn about Semaphores
+- [x] Learn about Semaphores
 - [ ] implement the Bonus part
