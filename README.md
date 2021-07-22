@@ -11,4 +11,6 @@
 - [x] Fix the norm
 - [x] Avoid Deadlock and Starvation
 - [x] Learn about Semaphores
-- [ ] implement the Bonus part
+- [x] implement the Bonus part
+
+**YUP. THAT'S IT**
