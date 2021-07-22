@@ -13,4 +13,4 @@
 - [x] Learn about Semaphores
 - [x] implement the Bonus part
 
-**YUP. THAT'S IT**
+:clap: **YUP. DONE. FINISH. COMPLEDADO. THAT'S IT** :clap:
