@@ -32,8 +32,8 @@ int	init_sem(t_table *table)
 	sem_unlink("/write");
 	sem_unlink("/eat_lock");
 	table->forks = sem_open("/forks", O_CREAT, table->philo_num);
-	table->write = sem_open("/write", O_CREAT, 1);
-	table->eat_lock = sem_open("/eat_lock", O_CREAT, 1);
+	table->write = sem_open("/write", O_CREAT, S_IRWXU, 1);
+	table->eat_lock = sem_open("/eat_lock", O_CREAT, S_IRWXU, 1);
 	return(0);
 }
 
