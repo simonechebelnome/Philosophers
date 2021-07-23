@@ -23,17 +23,19 @@
 # include <sys/time.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/signal.h>
+# include <sys/wait.h>
 
 
 typedef struct s_philo
 {
 	int				id;
-	int				right_fork;
 	int				have_eaten;
-	int				left_fork;
 	long long		last_meal;
 	struct s_table	*table;
-	pthread_t		thread_id;
+	pthread_t		check;
+	pid_t			process_id;
 }				t_philo;
 
 typedef struct s_table
@@ -57,7 +59,7 @@ typedef struct s_table
 /* MAIN CODE */
 void		*routine(void *philosopher_tmp);
 int			thread_start(t_table *table);
-void		check_death(t_table *table, t_philo *philo);
+void		*check_death(void *philo_tmp);
 
 /* PARSING */
 int			parse_argument(int argc, char **args, t_table *table);
@@ -65,7 +67,7 @@ int			fill_osophers(t_table *table);
 int			init_sem(t_table *table);
 
 /* UTILS */
-void		exit_and_destroy(t_table *table, t_philo *philo);
+void		exit_and_destroy(t_table *table);
 int			ft_atoi(const char *str);
 void		print_header(void);
 void		my_usleep(int time, t_table *table);

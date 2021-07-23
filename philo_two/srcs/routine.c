@@ -7,17 +7,22 @@ void	*routine(void *philosopher_tmp)
 
 	philo = (t_philo *)philosopher_tmp;
 	table = philo->table;
+	philo->last_meal = get_time();
+	pthread_create(&(philo->check), NULL, check_death, philosopher_tmp);
 	if (philo->id % 2)
 		usleep(15000);
 	while (!table->is_dead)
 	{
 		eat_time(philo);
-		if (table->all_ate)
+		if (philo->have_eaten >= table->no_ate && table->no_ate != -1)
 			break ;
 		print_message(table, YELLOW"is sleeping", philo->id);
 		my_usleep(table->sleep_time, table);
 		print_message(table, YELLOW"is thinking", philo->id);
 	}
+	pthread_join(philo->check, NULL);
+	if(table->is_dead)
+		exit(1);
 	return (0);
 }
 
@@ -26,46 +31,46 @@ int	thread_start(t_table *table)
 	t_philo	*philo;
 	int		i;
 
-	i = 0;
+	i = -1;
 	philo = table->philosophers;
 	table->start_time = get_time();
-	while (i < table->philo_num)
+	while (++i < table->philo_num)
 	{
-		if (pthread_create(&(philo[i].thread_id), NULL, routine, &(philo[i])))
+		philo[i].process_id = fork();
+		if (philo[i].process_id < 0)
 			return (1);
-		philo[i].last_meal = get_time();
-		i++;
+		if (philo[i].process_id == 0)
+			routine(&(philo[i]));
+		usleep(100);
 	}
-	check_death(table, table->philosophers);
-	exit_and_destroy(table, philo);
+	exit_and_destroy(table);
 	return (0);
 }
 
-void	check_death(t_table *table, t_philo *philo)
+void	*check_death(void *philo_tmp)
 {
-	int	i;
+	t_philo *philo;
+	t_table	*table;
 
-	while (!(table->all_ate))
+	philo = (t_philo *)philo_tmp;
+	table = philo->table;
+
+	while (1)
 	{
-		i = -1;
-		while (++i < table->philo_num && !(table->is_dead))
+		sem_wait(table->eat_lock);
+		if ((get_time() - philo->last_meal) > table->die_time)
 		{
-			sem_wait(table->eat_lock);
-			if ((get_time() - philo[i].last_meal) > table->die_time)
-			{
-				print_message(table, RED"died", philo[i].id);
-				table->is_dead = 1;
-			}
-			sem_post(table->eat_lock);
-			usleep(100);
+			print_message(table, RED"died", philo->id);
+			table->is_dead = 1;
+			sem_wait(table->write);
+			exit(1);
 		}
+		sem_post(table->eat_lock);
 		if (table->is_dead)
 			break ;
-		i = 0;
-		while (table->eat_count != -1 && i < table->philo_num
-			&& philo[i].have_eaten >= table->eat_count)
-			i++;
-		if (i == table->philo_num)
-			table->all_ate = 1;
+		usleep(1000);
+		if(philo->have_eaten >= table->no_ate && table->no_ate != -1)
+			break;
 	}
+	return (NULL);
 }

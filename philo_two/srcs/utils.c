@@ -1,12 +1,23 @@
 #include "../includes/philo.h"
 
-void	exit_and_destroy(t_table *table, t_philo *philo)
+void	exit_and_destroy(t_table *table)
 {
 	int	i;
+	int state;
 
-	i = -1;
-	while (++i < table->philo_num)
-		pthread_join(philo[i].thread_id, NULL);
+	i = 0;
+	while (i < table->philo_num)
+	{
+		waitpid(-1, &state, 0);
+		if (state != 0)
+		{
+			i = -1;
+			while (++i < table->philo_num)
+				kill(table->philosophers[i].process_id, 15);
+			break;
+		}
+		i++;
+	}
 	sem_close(table->forks);
 	sem_close(table->write);
 	sem_close(table->eat_lock);
