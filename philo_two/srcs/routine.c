@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smenna <smenna@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/24 15:12:44 by smenna            #+#    #+#             */
+/*   Updated: 2021/07/24 16:46:20 by smenna           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
-void	*routine(void *philosopher_tmp)
+void	routine(void *philosopher_tmp)
 {	
 	t_philo	*philo;
 	t_table	*table;
@@ -14,16 +26,16 @@ void	*routine(void *philosopher_tmp)
 	while (!table->is_dead)
 	{
 		eat_time(philo);
-		if (philo->have_eaten >= table->no_ate && table->no_ate != -1)
+		if (philo->have_eaten >= table->eat_count && table->eat_count != -1)
 			break ;
 		print_message(table, YELLOW"is sleeping", philo->id);
 		my_usleep(table->sleep_time, table);
 		print_message(table, YELLOW"is thinking", philo->id);
 	}
 	pthread_join(philo->check, NULL);
-	if(table->is_dead)
+	if (table->is_dead)
 		exit(1);
-	return (0);
+	exit(0);
 }
 
 int	thread_start(t_table *table)
@@ -49,12 +61,11 @@ int	thread_start(t_table *table)
 
 void	*check_death(void *philo_tmp)
 {
-	t_philo *philo;
+	t_philo	*philo;
 	t_table	*table;
 
 	philo = (t_philo *)philo_tmp;
 	table = philo->table;
-
 	while (1)
 	{
 		sem_wait(table->eat_lock);
@@ -69,8 +80,8 @@ void	*check_death(void *philo_tmp)
 		if (table->is_dead)
 			break ;
 		usleep(1000);
-		if(philo->have_eaten >= table->no_ate && table->no_ate != -1)
-			break;
+		if (philo->have_eaten >= table->eat_count && table->eat_count != -1)
+			break ;
 	}
 	return (NULL);
 }

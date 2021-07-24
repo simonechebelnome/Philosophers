@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smenna <smenna@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/24 15:12:50 by smenna            #+#    #+#             */
+/*   Updated: 2021/07/24 15:15:50 by smenna           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 void	exit_and_destroy(t_table *table)
 {
 	int	i;
-	int state;
+	int	state;
 
 	i = 0;
 	while (i < table->philo_num)
@@ -14,7 +26,7 @@ void	exit_and_destroy(t_table *table)
 			i = -1;
 			while (++i < table->philo_num)
 				kill(table->philosophers[i].process_id, 15);
-			break;
+			break ;
 		}
 		i++;
 	}

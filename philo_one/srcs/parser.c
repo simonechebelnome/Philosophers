@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smenna <smenna@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/24 15:12:22 by smenna            #+#    #+#             */
+/*   Updated: 2021/07/24 15:13:52 by smenna           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 int	parse_argument(int args_count, char **args, t_table *table)
@@ -20,7 +32,7 @@ int	parse_argument(int args_count, char **args, t_table *table)
 	}
 	else
 		table->eat_count = -1;
-	if(init_mutex(table))
+	if (init_mutex(table))
 		return (3);
 	fill_osophers(table);
 	return (0);
@@ -28,10 +40,10 @@ int	parse_argument(int args_count, char **args, t_table *table)
 
 int	init_mutex(t_table *table)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while(++i < table->philo_num)
+	while (++i < table->philo_num)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL))
 			return (1);
@@ -40,7 +52,7 @@ int	init_mutex(t_table *table)
 		return (2);
 	if (pthread_mutex_init(&table->eat_lock, NULL))
 		return (3);
-	return(0);
+	return (0);
 }
 
 int	fill_osophers(t_table *table)

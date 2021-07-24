@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smenna <smenna@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/24 15:12:35 by smenna            #+#    #+#             */
+/*   Updated: 2021/07/24 15:30:52 by smenna           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
-int	*eat_time(t_philo *philo)
+void	eat_time(t_philo *philo)
 {
 	t_table	*table;
 
@@ -17,5 +29,4 @@ int	*eat_time(t_philo *philo)
 	(philo->have_eaten)++;
 	sem_post(table->forks);
 	sem_post(table->forks);
-	return (0);
 }

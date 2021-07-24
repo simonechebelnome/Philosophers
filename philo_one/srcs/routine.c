@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smenna <smenna@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/24 15:12:25 by smenna            #+#    #+#             */
+/*   Updated: 2021/07/24 15:24:59 by smenna           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 void	*routine(void *philosopher_tmp)
@@ -54,7 +66,7 @@ void	check_death(t_table *table, t_philo *philo)
 			if ((get_time() - philo[i].last_meal) > table->die_time)
 			{
 				print_message(table, RED"died", philo[i].id);
-				table->is_dead = 1;
+				exit(1);
 			}
 			pthread_mutex_unlock(&table->eat_lock);
 			usleep(100);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smenna <smenna@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/24 15:12:12 by smenna            #+#    #+#             */
+/*   Updated: 2021/07/24 15:37:27 by smenna           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -15,18 +27,17 @@
 # define THREAD			"ERROR OCCURED WHEN CREATING THREADS"
 # define SUCCESS		"I'M EXITING THE PROGRAM"
 
-# include <stdio.h>
+# include <sys/time.h>
+# include <sys/wait.h>
+# include <signal.h>
 # include <unistd.h>
+# include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <pthread.h>
 # include <semaphore.h>
-# include <sys/time.h>
 # include <fcntl.h>
 # include <sys/stat.h>
-# include <sys/types.h>
-# include <sys/signal.h>
-# include <sys/wait.h>
-
 
 typedef struct s_philo
 {
@@ -57,7 +68,7 @@ typedef struct s_table
 }				t_table;
 
 /* MAIN CODE */
-void		*routine(void *philosopher_tmp);
+void		routine(void *philosopher_tmp);
 int			thread_start(t_table *table);
 void		*check_death(void *philo_tmp);
 
@@ -76,6 +87,6 @@ long long	get_time(void);
 int			return_error(char *message);
 
 /* ACTIONS */
-int			*eat_time(t_philo *philo);
+void		eat_time(t_philo *philo);
 
 #endif

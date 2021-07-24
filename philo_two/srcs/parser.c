@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smenna <smenna@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/24 15:12:42 by smenna            #+#    #+#             */
+/*   Updated: 2021/07/24 15:14:48 by smenna           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 int	parse_argument(int args_count, char **args, t_table *table)
@@ -20,7 +32,7 @@ int	parse_argument(int args_count, char **args, t_table *table)
 	}
 	else
 		table->eat_count = -1;
-	if(init_sem(table))
+	if (init_sem(table))
 		return (3);
 	fill_osophers(table);
 	return (0);
@@ -34,7 +46,7 @@ int	init_sem(t_table *table)
 	table->forks = sem_open("/forks", O_CREAT, table->philo_num);
 	table->write = sem_open("/write", O_CREAT, S_IRWXU, 1);
 	table->eat_lock = sem_open("/eat_lock", O_CREAT, S_IRWXU, 1);
-	return(0);
+	return (0);
 }
 
 int	fill_osophers(t_table *table)
