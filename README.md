@@ -12,6 +12,6 @@
 - [x] Avoid Deadlock and Starvation
 - [x] Learn about Semaphores
 - [x] implement the Bonus part
-- [x] Actually check if you fucked up some shit somewhere [[YOU BET I DID]]
+- [x] Actually check if you fucked up some shit somewhere [YOU BET I DID]
 
 :clap: **YUP. DONE. FINISH. COMPLEDADO. THAT'S IT** :clap:
