@@ -6,7 +6,7 @@
 /*   By: smenna <smenna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 15:12:35 by smenna            #+#    #+#             */
-/*   Updated: 2021/07/24 15:30:52 by smenna           ###   ########.fr       */
+/*   Updated: 2021/07/26 15:26:53 by smenna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	eat_time(t_philo *philo)
 	philo->last_meal = get_time();
 	sem_post(table->eat_lock);
 	my_usleep(table->eat_time, table);
-	(philo->have_eaten)++;
+	philo->have_eaten++;
 	sem_post(table->forks);
 	sem_post(table->forks);
 }

@@ -6,7 +6,7 @@
 /*   By: smenna <smenna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 15:12:42 by smenna            #+#    #+#             */
-/*   Updated: 2021/07/24 15:14:48 by smenna           ###   ########.fr       */
+/*   Updated: 2021/07/26 15:58:54 by smenna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	parse_argument(int args_count, char **args, t_table *table)
 	}
 	else
 		table->eat_count = -1;
-	if (table->eat_count == 1)
-		table->eat_count++;
 	if (init_sem(table))
 		return (3);
 	fill_osophers(table);
@@ -44,9 +42,11 @@ int	init_sem(t_table *table)
 	sem_unlink("/forks");
 	sem_unlink("/write");
 	sem_unlink("/eat_lock");
-	table->forks = sem_open("/forks", O_CREAT, table->philo_num);
+	table->forks = sem_open("/forks", O_CREAT, S_IRWXU, table->philo_num);
 	table->write = sem_open("/write", O_CREAT, S_IRWXU, 1);
 	table->eat_lock = sem_open("/eat_lock", O_CREAT, S_IRWXU, 1);
+	if (table->forks <= 0 || table->write <= 0 || table->eat_lock <= 0)
+		return (1);
 	return (0);
 }
 
